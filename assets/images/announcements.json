@@ -1,0 +1,79 @@
+[
+ {
+  "id": "ann-001",
+  "title": "Community Clean-Up Drive",
+  "category": "Environmental Programs",
+  "date": "2026-10-10",
+  "summary": "Join a sample neighborhood clean-up this month.",
+  "description": "A fictional clean-up drive. Bring gloves and a water bottle.",
+  "status": "Active",
+  "expires": "2026-10-30"
+ },
+ {
+  "id": "ann-002",
+  "title": "Free Health Screening Day",
+  "category": "Health Information",
+  "date": "2026-10-08",
+  "summary": "Sample basic checkups at the Demo Health Center.",
+  "description": "Fictional screening day with blood pressure and weight checks.",
+  "status": "Active",
+  "expires": "2026-10-25"
+ },
+ {
+  "id": "ann-003",
+  "title": "Office Schedule Adjustment",
+  "category": "Public Notices",
+  "date": "2026-10-05",
+  "summary": "Demo offices close early on Fridays.",
+  "description": "Illustrative hours change for the fictional Demo Community Hall.",
+  "status": "Active"
+ },
+ {
+  "id": "ann-004",
+  "title": "Youth Skills Workshop Series",
+  "category": "Education",
+  "date": "2026-09-28",
+  "summary": "Registration opens for sample workshops.",
+  "description": "Fictional workshops on digital skills and public speaking.",
+  "status": "Active",
+  "expires": "2026-10-20"
+ },
+ {
+  "id": "ann-005",
+  "title": "Barangay Fiesta Planning Meeting",
+  "category": "Community Events",
+  "date": "2026-09-20",
+  "summary": "Residents invited to a demo planning meeting.",
+  "description": "A fictional meeting to plan community activities.",
+  "status": "Active",
+  "expires": "2026-09-30"
+ },
+ {
+  "id": "ann-006",
+  "title": "Waste Segregation Reminder",
+  "category": "Environmental Programs",
+  "date": "2026-09-12",
+  "summary": "Reminder about sample segregation rules.",
+  "description": "Separate biodegradable, recyclable and residual waste.",
+  "status": "Active"
+ },
+ {
+  "id": "ann-007",
+  "title": "Scholarship Information Session",
+  "category": "Education",
+  "date": "2026-10-12",
+  "summary": "Learn about sample scholarship options.",
+  "description": "Fictional session covering sample requirements and deadlines.",
+  "status": "Active",
+  "expires": "2026-11-15"
+ },
+ {
+  "id": "ann-008",
+  "title": "Welcome to CivicAssist",
+  "category": "General Announcements",
+  "date": "2026-09-01",
+  "summary": "Introduction to this demonstration portal.",
+  "description": "CivicAssist is a student project using fictional data. Verify real information with official offices.",
+  "status": "Active"
+ }
+]
