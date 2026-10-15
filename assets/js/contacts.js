@@ -4,12 +4,11 @@
   const q = document.getElementById('q'), cat = document.getElementById('cat'), list = document.getElementById('list'), count = document.getElementById('count');
   let all = [];
   const validTel = c => c.verified === true && typeof c.number === 'string' && /^\+?[\d][\d\s()-]{2,19}$/.test(c.number);
-  const card = c => el('article', { class: 'card' }, [
-    el('h2', { text: c.name }), el('p', {}, el('span', { class: 'tag', text: c.category })), el('p', { text: c.description }),
-    el('p', { class: 'meta', text: 'Hours: ' + (c.hours || 'Not specified') }), el('p', { class: 'meta', text: c.instructions || '' }),
-    validTel(c) ? el('a', { class: 'btn', href: 'tel:' + c.number.replace(/[^\d+]/g, ''), text: 'Call ' + c.number })
-      : el('p', { class: 'notice warn', text: 'Example record: contact information needs verification.' })
-  ]);
+  const card = c => el('article', { class: 'card ccard' }, [CA.img(c.category), el('div', { class: 'body' }, [
+    el('span', { class: 'tag', text: c.category }), el('h2', { text: c.name }), el('p', { text: c.description }),
+    CA.chip('clock', c.hours || 'Hours not specified'), el('p', { class: 'meta', text: c.instructions || '' }),
+    validTel(c) ? el('a', { class: 'btn call', href: 'tel:' + c.number.replace(/[^\d+]/g, '') }, [CA.ico('phone'), 'Call ' + c.number])
+      : el('p', { class: 'notice warn', text: 'Example record: contact information needs verification.' })])]);
   const render = () => {
     const terms = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const r = all.filter(c => (!cat.value || c.category === cat.value) && terms.every(t => [c.name, c.category, c.description].join(' ').toLowerCase().includes(t)));

@@ -9,7 +9,8 @@
     const f = document.getElementById('home-search');
     f.addEventListener('submit', e => { e.preventDefault(); const q = f.elements.q.value.trim(); location.href = 'services.html' + (q ? '?q=' + encodeURIComponent(q) : ''); });
     const cats = document.getElementById('cats');
-    CATS.forEach(c => cats.append(el('a', { class: 'card cat', href: 'services.html?cat=' + encodeURIComponent(c) }, [CA.icon(c), el('span', { text: c })])));
+    const D = {'Civil Documents':'Clearances and certificates.','Community Assistance':'Aid, indigency and complaints.','Health and Welfare':'Health, senior and PWD support.','Business and Permits':'Permit guidance for small businesses.','Education and Youth':'Youth programs and events.','Environmental Services':'Waste collection and clean-up.'};
+    CATS.forEach(c => cats.append(el('a', { class: 'card cat', href: 'services.html?cat=' + encodeURIComponent(c) }, [CA.icon(c), el('h3', { text: c }), el('p', { text: D[c] }), el('span', { class: 'more' }, ['View Services', CA.ico('search')])])));
     const box = document.getElementById('featured');
     loadAll().then(d => box.replaceChildren(el('div', { class: 'grid' }, d.filter(s => s.featured).slice(0, 6).map(s => CA.serviceCard(s))))).catch(() => fail(box));
   }
@@ -48,24 +49,24 @@
     const box = document.getElementById('detail');
     const id = new URLSearchParams(location.search).get('id') || '';
     const back = () => el('a', { class: 'btn', href: 'services.html', text: 'Back to Services' });
-    const sec = (h, c) => el('section', { class: 'panel' }, [el('h2', { text: h }), c]);
-    const ul = a => el('ul', {}, a.map(t => el('li', { text: t })));
+    const sec = (h, ic, c) => el('section', { class: 'panel' }, [el('h2', {}, [CA.ico(ic), h]), c]);
+    const ul = a => el('ul', { class: 'ticks' }, a.map(t => el('li', { text: t })));
     loadAll().then(d => {
       const s = /^[\w-]{1,40}$/.test(id) ? d.find(x => x.id === id) : null;
       if (!s) return status(box, 'error', 'That service could not be found. The link may be invalid.', back());
       document.title = s.name + ' | CivicAssist';
       let rel = d.filter(x => x.category === s.category && x.id !== s.id);
-      if (!rel.length) rel = d.filter(x => x.id !== s.id).slice(0, 3);
+      if (!rel.length) rel = d.filter(x => x.id !== s.id);
+      const info = (ic, h, t) => el('div', { class: 'info' }, [CA.ico(ic), el('div', {}, [el('strong', { text: h }), el('p', { text: t })])]);
       box.replaceChildren(
         el('p', {}, back()),
-        el('h1', { text: s.name }),
-        el('p', {}, [el('span', { class: 'tag', text: s.category }), CA.favBtn(s.id, s.name)]),
+        el('section', { class: 'dhero' }, [CA.img(s.category, 'dimg'), el('div', {}, [el('span', { class: 'tag', text: s.category }), el('h1', { text: s.name }), el('p', { text: s.short }), CA.favBtn(s.id, s.name)])]),
         el('p', { class: 'notice', text: 'Demonstration data only. Requirements, fees and schedules are fictional examples; verify with the appropriate local office.' }),
-        sec('Description', el('p', { text: s.detail })),
-        sec('Illustrative requirements', ul(s.requirements || [])),
-        sec('Preparation instructions', el('ol', {}, (s.steps || []).map(t => el('li', { text: t })))),
-        sec('Office information', el('p', { text: s.office + (s.hours ? ' — ' + s.hours : '') + (s.processing ? '. ' + s.processing : '') })),
-        sec('Important reminders', el('p', { text: s.notes || 'Verify details with the local office.' })),
+        el('div', { class: 'detail-grid' }, [
+          el('div', {}, [sec('Overview', 'info', el('p', { text: s.detail })), sec('Requirements and documents', 'doc', ul(s.requirements || [])),
+            sec('Application procedure', 'calendar', el('ol', {}, (s.steps || []).map(t => el('li', { text: t })))), sec('Important reminders', 'alert', el('p', { text: s.notes || 'Verify details with the local office.' }))]),
+          el('aside', { class: 'panel side' }, [el('h2', { text: 'Office information' }), info('pin', 'Office', s.office), info('clock', 'Operating hours', s.hours || 'Not specified'),
+            info('calendar', 'Processing time', s.processing || 'Not specified'), info('phone', 'Contact', 'Not verified in this demo. Confirm with the local office.')])]),
         el('h2', { text: 'Related services' }),
         el('div', { class: 'grid' }, rel.slice(0, 3).map(x => CA.serviceCard(x)))
       );
